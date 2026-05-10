@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class ReactiveVariable<T> : ScriptableObject
 {
-    [SerializeField] protected T _value;
+    [SerializeField] protected T _initialValue;
+    private T _value;
     public T Value
     {
         get => _value;
@@ -32,5 +33,10 @@ public abstract class ReactiveVariable<T> : ScriptableObject
     public void ForceStart()
     {
         OnUpdate?.Invoke(_value);
+    }
+    
+    private void OnEnable()
+    {
+        _value = _initialValue;
     }
 }
